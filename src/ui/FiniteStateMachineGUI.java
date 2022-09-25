@@ -28,13 +28,13 @@ public class FiniteStateMachineGUI {
 	private Button continueToScreen2;
 
 	@FXML
-	private TextField inputSimbols;
+	private TextField inputSymbols;
 
 	@FXML
 	private ToggleGroup machines;
 
 	@FXML
-	private TextField outputSimbols;
+	private TextField outputSymbols;
 
 	@FXML
 	private RadioButton rbMealy;
@@ -69,9 +69,9 @@ public class FiniteStateMachineGUI {
 		if(rbMoore.isSelected()) {
 			type="Moore";
 		}
-		if(!type.equals("") && !inputSimbols.getText().equals("") && !outputSimbols.getText().equals("")) {
-			String[] inSymbols = inputSimbols.getText().split(",");
-			String[] outSymbols = outputSimbols.getText().split(",");
+		if(!type.equals("") && !inputSymbols.getText().equals("") && !outputSymbols.getText().equals("")) {
+			String[] inSymbols = inputSymbols.getText().split(",");
+			String[] outSymbols = outputSymbols.getText().split(",");
 			fsmC = new FSMController(type, inSymbols, outSymbols, statesSpinner.getValue());
 		}else {
 			Alert alert = new Alert(AlertType.ERROR);
