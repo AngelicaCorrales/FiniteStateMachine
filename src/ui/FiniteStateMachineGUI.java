@@ -8,9 +8,12 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.Spinner;
 import javafx.scene.control.SpinnerValueFactory;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.control.Alert.AlertType;
@@ -61,7 +64,7 @@ public class FiniteStateMachineGUI {
 	}
 
 	@FXML
-	public void continueToScreen2(ActionEvent event) {
+	public void continueToScreen2(ActionEvent event) throws IOException {
 		String type="";
 		if(rbMealy.isSelected()) {
 			type="Mealy";
@@ -73,6 +76,15 @@ public class FiniteStateMachineGUI {
 			String[] inSimbols = inputSimbols.getText().split(",");
 			String[] outSimbols = outputSimbols.getText().split(",");
 			fsmC = new FSMController(type, inSimbols, outSimbols, statesSpinner.getValue());
+			
+			
+			FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/ui/screen2.fxml"));
+			fxmlLoader.setController(this);
+			Parent menuPane = fxmlLoader.load();
+			mainPane.getChildren().clear();
+			mainPane.setCenter(menuPane);
+			mainPane.setStyle("-fx-background-image: url(/ui/background.jpeg)");
+			
 		}else {
 			Alert alert = new Alert(AlertType.ERROR);
 			alert.setTitle("Error");
@@ -85,10 +97,51 @@ public class FiniteStateMachineGUI {
 	
 	
 	
+	@FXML
+	private TableColumn<?, ?> colOriginalStates;
+
+	@FXML
+	private Label lbNameMachine;
+
+	@FXML
+	private TableView<?> tvOriginalMachine;
+
+	@FXML
+	private TableColumn<?, ?> colBlocks;
+
+	@FXML
+	private TableColumn<?, ?> colNewStates;
+
+	@FXML
+	private Label lbMinimizedMachine;
+
+	@FXML
+	private TableView<?> tvMinimizedMachine;
 	
 	
 	
 	
+	
+	
+	@FXML
+	public void minimizeMachine(ActionEvent event) throws IOException {
+		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/ui/screen3.fxml"));
+		fxmlLoader.setController(this);
+		Parent menuPane = fxmlLoader.load();
+		mainPane.getChildren().clear();
+		mainPane.setCenter(menuPane);
+		mainPane.setStyle("-fx-background-image: url(/ui/background.jpeg)");
+		
+		
+		
+	}
+
+	@FXML
+	public void returnHome(ActionEvent event) throws IOException {
+		showWelcomeWindow();
+	}
+
+	    	
 	
 	
 	

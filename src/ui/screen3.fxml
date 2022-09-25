@@ -41,7 +41,7 @@
    <bottom>
       <VBox alignment="CENTER" prefHeight="163.0" prefWidth="1000.0" BorderPane.alignment="CENTER">
          <children>
-            <Button alignment="CENTER" mnemonicParsing="false" onAction="#btnReturnHome" style="-fx-background-color: #25b636; -fx-border-color: #1b8327; -fx-border-width: 3;" text="Volver al inicio" textFill="WHITE">
+            <Button alignment="CENTER" mnemonicParsing="false" onAction="#returnHome" style="-fx-background-color: #25b636; -fx-border-color: #1b8327; -fx-border-width: 3;" text="Volver al inicio" textFill="WHITE">
                <font>
                   <Font name="Rockwell" size="25.0" />
                </font>
