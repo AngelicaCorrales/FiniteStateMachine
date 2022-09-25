@@ -22,6 +22,46 @@ public class FiniteStateMachine {
 			numASCII++;
 		}
 	}
+
+	public ArrayList<String> getStates() {
+		return states;
+	}
+
+	public void setStates(ArrayList<String> states) {
+		this.states = states;
+	}
+
+	public ArrayList<String> getInputAlphabet() {
+		return inputAlphabet;
+	}
+
+	public void setInputAlphabet(ArrayList<String> inputAlphabet) {
+		this.inputAlphabet = inputAlphabet;
+	}
+
+	public ArrayList<String> getOutputAlphabet() {
+		return outputAlphabet;
+	}
+
+	public void setOutputAlphabet(ArrayList<String> outputAlphabet) {
+		this.outputAlphabet = outputAlphabet;
+	}
+
+	public String[][] getStateTransition() {
+		return stateTransition;
+	}
+
+	public void setStateTransition(String[][] stateTransition) {
+		this.stateTransition = stateTransition;
+	}
+
+	public ArrayList<String> getBlocks() {
+		return blocks;
+	}
+
+	public void setBlocks(ArrayList<String> blocks) {
+		this.blocks = blocks;
+	}
 	
 	
 	

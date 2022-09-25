@@ -12,6 +12,14 @@ public class FSMController {
 		}
 	}
 
+	public FiniteStateMachine getMachine() {
+		return machine;
+	}
+
+	public void setMachine(FiniteStateMachine machine) {
+		this.machine = machine;
+	}
+
 	
 	
 	
