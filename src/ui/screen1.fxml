@@ -33,7 +33,7 @@
                   <Insets left="100.0" />
                </GridPane.margin>
                <font>
-                  <Font name="Rockwell Bold" size="25.0" />
+                  <Font name="Rockwell" size="25.0" />
                </font>
                <toggleGroup>
                   <ToggleGroup fx:id="machines" />
@@ -41,7 +41,7 @@
             </RadioButton>
             <RadioButton fx:id="rbMoore" mnemonicParsing="false" text="Moore machine" textFill="WHITE" toggleGroup="$machines" GridPane.columnIndex="1">
                <font>
-                  <Font name="Rockwell Bold" size="25.0" />
+                  <Font name="Rockwell" size="25.0" />
                </font>
             </RadioButton>
             <Label text="Número de estados:" textFill="WHITE" GridPane.rowIndex="1">
@@ -49,7 +49,7 @@
                   <Insets left="80.0" />
                </GridPane.margin>
                <font>
-                  <Font name="Rockwell Bold" size="25.0" />
+                  <Font name="Rockwell" size="25.0" />
                </font>
             </Label>
             <Label text="Símbolos de entrada:" textFill="WHITE" GridPane.rowIndex="2">
@@ -57,7 +57,7 @@
                   <Insets left="75.0" />
                </GridPane.margin>
                <font>
-                  <Font name="Rockwell Bold" size="25.0" />
+                  <Font name="Rockwell" size="25.0" />
                </font>
             </Label>
             <Label text="Símbolos de salida:" textFill="WHITE" GridPane.rowIndex="3">
@@ -65,7 +65,7 @@
                   <Insets left="73.0" />
                </GridPane.margin>
                <font>
-                  <Font name="Rockwell Bold" size="25.0" />
+                  <Font name="Rockwell" size="25.0" />
                </font>
             </Label>
             <Spinner fx:id="statesSpinner" prefWidth="170.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />

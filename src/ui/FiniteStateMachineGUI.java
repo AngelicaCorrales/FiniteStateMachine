@@ -70,9 +70,9 @@ public class FiniteStateMachineGUI {
 			type="Moore";
 		}
 		if(!type.equals("") && !inputSimbols.getText().equals("") && !outputSimbols.getText().equals("")) {
-			String[] inSimbols = inputSimbols.getText().split(",");
-			String[] outSimbols = outputSimbols.getText().split(",");
-			fsmC = new FSMController(type, inSimbols, outSimbols, statesSpinner.getValue());
+			String[] inSymbols = inputSimbols.getText().split(",");
+			String[] outSymbols = outputSimbols.getText().split(",");
+			fsmC = new FSMController(type, inSymbols, outSymbols, statesSpinner.getValue());
 		}else {
 			Alert alert = new Alert(AlertType.ERROR);
 			alert.setTitle("Error");
