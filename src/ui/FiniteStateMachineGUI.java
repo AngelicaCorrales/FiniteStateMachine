@@ -31,13 +31,13 @@ public class FiniteStateMachineGUI {
 	private Button continueToScreen2;
 
 	@FXML
-	private TextField inputSimbols;
+	private TextField inputSymbols;
 
 	@FXML
 	private ToggleGroup machines;
 
 	@FXML
-	private TextField outputSimbols;
+	private TextField outputSymbols;
 
 	@FXML
 	private RadioButton rbMealy;
@@ -72,19 +72,21 @@ public class FiniteStateMachineGUI {
 		if(rbMoore.isSelected()) {
 			type="Moore";
 		}
-		if(!type.equals("") && !inputSimbols.getText().equals("") && !outputSimbols.getText().equals("")) {
-			String[] inSimbols = inputSimbols.getText().split(",");
-			String[] outSimbols = outputSimbols.getText().split(",");
-			fsmC = new FSMController(type, inSimbols, outSimbols, statesSpinner.getValue());
-			
-			
+
+		if(!type.equals("") && !inputSymbols.getText().equals("") && !outputSymbols.getText().equals("")) {
+			String[] inSymbols = inputSymbols.getText().split(",");
+			String[] outSymbols = outputSymbols.getText().split(",");
+			fsmC = new FSMController(type, inSymbols, outSymbols, statesSpinner.getValue());
+
+
 			FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/ui/screen2.fxml"));
 			fxmlLoader.setController(this);
 			Parent menuPane = fxmlLoader.load();
 			mainPane.getChildren().clear();
 			mainPane.setCenter(menuPane);
 			mainPane.setStyle("-fx-background-image: url(/ui/background.jpeg)");
-			
+
+
 		}else {
 			Alert alert = new Alert(AlertType.ERROR);
 			alert.setTitle("Error");
