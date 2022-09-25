@@ -89,7 +89,7 @@
       </GridPane>
    </center>
    <bottom>
-      <Button fx:id="continueToScreen2" mnemonicParsing="false" style="-fx-background-color: #25b636; -fx-border-color: #1b8327; -fx-border-width: 3;" text="Continuar" textFill="WHITE" BorderPane.alignment="CENTER">
+      <Button mnemonicParsing="false" onAction="#continueToScreen2" style="-fx-background-color: #25b636; -fx-border-color: #1b8327; -fx-border-width: 3;" text="Continuar" textFill="WHITE" BorderPane.alignment="CENTER">
          <BorderPane.margin>
             <Insets bottom="90.0" />
          </BorderPane.margin>

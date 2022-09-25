@@ -5,16 +5,15 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import model.FiniteStateMachine;
+import model.FSMController;
 
 public class Main extends Application{
 
-	private FiniteStateMachine fsm;
+	private FSMController fsmC;
 	private FiniteStateMachineGUI fsmGUI;
 	
 	public Main() {
-		fsm= new FiniteStateMachine();
-		fsmGUI= new FiniteStateMachineGUI(fsm);	
+		fsmGUI= new FiniteStateMachineGUI(fsmC);	
 	}
 	
 	public static void main(String[] args) {
