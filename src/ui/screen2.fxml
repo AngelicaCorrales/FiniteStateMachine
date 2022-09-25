@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1">
+   <center>
+      <TableView fx:id="tvOriginalMachine" prefHeight="200.0" prefWidth="200.0" style="-fx-font-family: Rockwell; -fx-font-size: 20;" BorderPane.alignment="CENTER">
+        <columns>
+          <TableColumn fx:id="colOriginalStates" prefWidth="75.0" text="q" />
+        </columns>
+         <BorderPane.margin>
+            <Insets left="50.0" right="50.0" />
+         </BorderPane.margin>
+         <columnResizePolicy>
+            <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+         </columnResizePolicy>
+      </TableView>
+   </center>
+   <top>
+      <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
+         <children>
+            <Label fx:id="lbNameMachine" text="Machine" textFill="WHITE">
+               <font>
+                  <Font name="Rockwell" size="40.0" />
+               </font>
+               <VBox.margin>
+                  <Insets bottom="30.0" />
+               </VBox.margin>
+            </Label>
+            <Label text="Seleccione los valores correspondientes para los estados" textFill="WHITE">
+               <font>
+                  <Font name="Rockwell Bold" size="25.0" />
+               </font>
+               <VBox.margin>
+                  <Insets bottom="-30.0" />
+               </VBox.margin>
+            </Label>
+         </children>
+      </VBox>
+   </top>
+   <bottom>
+      <VBox alignment="CENTER" prefHeight="163.0" prefWidth="1000.0" BorderPane.alignment="CENTER">
+         <children>
+            <Button alignment="CENTER" mnemonicParsing="false" onAction="#btnMinimizeMachine" style="-fx-background-color: #25b636; -fx-border-color: #1b8327; -fx-border-width: 3;" text="Minimizar máquina" textFill="WHITE">
+               <font>
+                  <Font name="Rockwell" size="25.0" />
+               </font>
+            </Button>
+         </children>
+      </VBox>
+   </bottom>
+</BorderPane>
