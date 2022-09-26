@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 import javafx.beans.property.SimpleObjectProperty;
-import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -58,6 +57,36 @@ public class FiniteStateMachineGUI {
 	@FXML
 	private Spinner<Integer> statesSpinner;
 	
+	//----Screen 2
+	
+	@FXML
+	private TableColumn<FSMTableViewRow, String> colOriginalStates;
+
+	@FXML
+	private Label lbNameMachine;
+
+	@FXML
+	private TableView<FSMTableViewRow> tvOriginalMachine;
+	
+	private ArrayList<FSMTableViewRow> fsmRows;
+	
+	//----Screen 3
+	
+	@FXML
+	private TableColumn<?, ?> colBlocks;
+
+	@FXML
+	private TableColumn<?, ?> colNewStates;
+
+	@FXML
+	private Label lbMinimizedMachine;
+
+	@FXML
+	private TableView<?> tvMinimizedMachine;
+	
+
+	
+	
 	public FiniteStateMachineGUI(FSMController m) {
 		fsmC=m;
 	}
@@ -95,6 +124,7 @@ public class FiniteStateMachineGUI {
 			mainPane.getChildren().clear();
 			mainPane.setCenter(menuPane);
 			mainPane.setStyle("-fx-background-image: url(/ui/background.jpeg)");
+			lbNameMachine.setText("Maquina de "+type);
 			initializeTableViewOriginalMachine();
 
 
@@ -108,39 +138,7 @@ public class FiniteStateMachineGUI {
 	}
 
 	
-	
-	
-	@FXML
-	private TableColumn<FSMTableViewRow, String> colOriginalStates;
-
-	@FXML
-	private Label lbNameMachine;
-
-	@FXML
-	private TableView<FSMTableViewRow> tvOriginalMachine;
-
-	@FXML
-	private TableColumn<?, ?> colBlocks;
-
-	@FXML
-	private TableColumn<?, ?> colNewStates;
-
-	@FXML
-	private Label lbMinimizedMachine;
-
-	@FXML
-	private TableView<?> tvMinimizedMachine;
-	
-	private ComboBox<String>[][] stateTransitionCbx;
-	private ComboBox<String>[][] outputResultMealyCbx;
-	private ArrayList<ComboBox<String>> outputResultMooreCbx;
-	
-	private ArrayList<FSMTableViewRow> fsmRows;
-	
-	
-	
-	
-	
+		
 	@FXML
 	public void minimizeMachine(ActionEvent event) throws IOException {
 		if(valuesMissingMachine()) {
@@ -157,6 +155,11 @@ public class FiniteStateMachineGUI {
 			mainPane.getChildren().clear();
 			mainPane.setCenter(menuPane);
 			mainPane.setStyle("-fx-background-image: url(/ui/background.jpeg)");
+			String machine="Maquina de Mealy";
+			if(fsmC.getMachine() instanceof MooreMachine) {
+				machine="Maquina de Moore";
+			}
+			lbMinimizedMachine.setText(machine+" Minimizada");
 		}
 					
 	}
@@ -254,19 +257,10 @@ public class FiniteStateMachineGUI {
 		}
 		
 		
-		
-		
-		//tc.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getWC(...)));
-
-		
-		//tcName.setCellValueFactory(new PropertyValueFactory<Player, String>("Name"));
-		
-		
 	}
 	    	
 	public void initializeTableViewOriginalMealy(ObservableList<String> statesOptions, ObservableList<String> outputOptions) {
-		
-		
+				
 		for(int i=0; i<fsmC.getMachine().getStates().size();i++) {
 			FSMTableViewRow row=new MealyTableViewRow(fsmC.getMachine().getStates().get(i));
 						
@@ -276,14 +270,12 @@ public class FiniteStateMachineGUI {
 			}
 			
 			fsmRows.add(row);
-			
-			
+						
 		}
 	}
 	
 	public void initializeTableViewOriginalMoore(ObservableList<String> statesOptions, ObservableList<String> outputOptions) {
-		
-		
+				
 		for(int i=0; i<fsmC.getMachine().getStates().size();i++) {
 			FSMTableViewRow row=new MooreTableViewRow(fsmC.getMachine().getStates().get(i));
 			
@@ -291,12 +283,8 @@ public class FiniteStateMachineGUI {
 				row.getfFunct().add(new ComboBox<String>(statesOptions));
 			}
 			
-			((MooreTableViewRow)row).sethFunct(new ComboBox<String>(outputOptions));
-			
-			
-			fsmRows.add(row);
-			
-			
+			((MooreTableViewRow)row).sethFunct(new ComboBox<String>(outputOptions));			
+			fsmRows.add(row);						
 		}
 	}
 	
@@ -310,27 +298,21 @@ public class FiniteStateMachineGUI {
 	}
 	
 	
-	public void addColumnsMealy() {
-	
+	public void addColumnsMealy() {	
 		//Agregar columnas de las funciones f y g 
 		for(int i=0; i<fsmC.getMachine().getInputAlphabet().size();i++) {
 			tvOriginalMachine.getColumns().add(new TableColumn<FSMTableViewRow, ComboBox<String>>("f(q,"+fsmC.getMachine().getInputAlphabet().get(i)+")"));
 			tvOriginalMachine.getColumns().add(new TableColumn<FSMTableViewRow, ComboBox<String>>("g(q,"+fsmC.getMachine().getInputAlphabet().get(i)+")"));
-		}
-
-		
+		}		
 	}
 	
-	public void addColumnsMoore() {
-		
+	public void addColumnsMoore() {		
 		//Agregar columnas de las funciones f
 		for(int i=0; i<fsmC.getMachine().getInputAlphabet().size();i++) {
 			tvOriginalMachine.getColumns().add(new TableColumn<FSMTableViewRow, ComboBox<String>>("f(q,"+fsmC.getMachine().getInputAlphabet().get(i)+")"));
-		}
-		
+		}		
 		//Agregar columna de la funcion h
 		tvOriginalMachine.getColumns().add(new TableColumn<FSMTableViewRow, ComboBox<String>>("h(q)"));
-		
 	}
 	
 	
