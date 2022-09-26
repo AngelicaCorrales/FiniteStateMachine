@@ -22,6 +22,16 @@ public class MealyMachine extends FiniteStateMachine{
 	public void setOutputResult(ArrayList<ArrayList<String>> outputResult) {
 		this.outputResult = outputResult;
 	}
+	
+	@Override
+	public void removeOutputResult(int index) {
+		outputResult.remove(index);
+	}
+	
+	@Override
+	public void particioningAlgorithm() {
+		
+	}
 
 	
 	

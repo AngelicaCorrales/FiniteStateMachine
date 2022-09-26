@@ -34,21 +34,30 @@ public class MooreMachine extends FiniteStateMachine{
 		this.particioning = particioning;
 	}
 
+	@Override
+	public void removeOutputResult(int index) {
+		outputResult.remove(index);
+	}
 
-	
-	public void particioningAlgorithm(ArrayList<String> outputs) {
-		outputResult=outputs;
+	@Override
+	public void particioningAlgorithm() {
+		//Paso 2a: Formar una particion inicial P1 de Q
 		for(int k=0;k<super.getOutputAlphabet().size();k++) {
-			ArrayList<String> equalSymbols=new ArrayList<>();
-			for(int j=0;j<outputResult.size();j++) {
-				for(int i=0;i<outputResult.size();i++) {
-					if(outputResult.get(j).equals(outputResult.get(i))) {
-						equalSymbols.add(super.getStates().get(j));
+			ArrayList<String> equalSymbols=new ArrayList<String>();
+			for(int i=0;i<outputResult.size();i++) {
+				for(int j=1;j<outputResult.size();j++) {
+					if( outputResult.get(i).equals(equalSymbols.get(k)) && outputResult.get(i).equals(outputResult.get(j))) {
+						equalSymbols.add(super.getStates().get(i));
 					}
+					i=j;
+					
 				}
 			}
 			particioning.add(equalSymbols);
 		}
+		
+		//Paso 2b: Obtener Pk+1 de Pk
+		
 	}
 	
 	
