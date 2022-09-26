@@ -27,6 +27,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.BorderPane;
 import model.FSMController;
 import model.MealyMachine;
+import model.MooreMachine;
 
 
 public class FiniteStateMachineGUI {
@@ -142,16 +143,51 @@ public class FiniteStateMachineGUI {
 	
 	@FXML
 	public void minimizeMachine(ActionEvent event) throws IOException {
-		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/ui/screen3.fxml"));
-		fxmlLoader.setController(this);
-		Parent menuPane = fxmlLoader.load();
-		mainPane.getChildren().clear();
-		mainPane.setCenter(menuPane);
-		mainPane.setStyle("-fx-background-image: url(/ui/background.jpeg)");
-		
-		
-		
+		if(valuesMissingMachine()) {
+			Alert alert = new Alert(AlertType.ERROR);
+			alert.setTitle("Error de validacion");
+			alert.setHeaderText(null);
+			alert.setContentText("Por favor, llene todos los campos para crear la maquina");
+			alert.showAndWait();
+		}else {
+
+			FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/ui/screen3.fxml"));
+			fxmlLoader.setController(this);
+			Parent menuPane = fxmlLoader.load();
+			mainPane.getChildren().clear();
+			mainPane.setCenter(menuPane);
+			mainPane.setStyle("-fx-background-image: url(/ui/background.jpeg)");
+		}
+					
 	}
+	
+	public boolean valuesMissingMachine() {
+		boolean exit=false;
+		for(int i=0;i<fsmRows.size() && !exit;i++) {
+			for(int j=0;j<fsmRows.get(i).getfFunct().size() && !exit;j++) {
+				if(fsmRows.get(i).getfFunct().get(j).getValue()==null) {
+					exit=true; //salir si el valor de g es nulo
+				}
+				
+				if(!exit) {
+					if(fsmC.getMachine() instanceof MealyMachine) {
+						if(((MealyTableViewRow)fsmRows.get(i)).getgFunct().get(j).getValue()==null) {
+							exit=true; //salir si el valor de h es nulo
+						}
+					}
+				}
+			
+			}
+			if(!exit && fsmC.getMachine() instanceof MooreMachine) {
+				if(((MooreTableViewRow)fsmRows.get(i)).gethFunct().getValue()==null) {
+					exit=true;
+				}
+			}
+		}
+		
+		return exit;
+	}
+	
 
 	@FXML
 	public void returnHome(ActionEvent event) throws IOException {
