@@ -48,7 +48,7 @@
    <bottom>
       <VBox alignment="CENTER" prefHeight="163.0" prefWidth="1000.0" BorderPane.alignment="CENTER">
          <children>
-            <Button alignment="CENTER" mnemonicParsing="false" onAction="#btnMinimizeMachine" style="-fx-background-color: #25b636; -fx-border-color: #1b8327; -fx-border-width: 3;" text="Minimizar máquina" textFill="WHITE">
+            <Button alignment="CENTER" mnemonicParsing="false" onAction="#minimizeMachine" style="-fx-background-color: #25b636; -fx-border-color: #1b8327; -fx-border-width: 3;" text="Minimizar máquina" textFill="WHITE">
                <font>
                   <Font name="Rockwell" size="25.0" />
                </font>
