@@ -150,7 +150,7 @@ public class FiniteStateMachineGUI {
 			alert.setContentText("Por favor, llene todos los campos para crear la maquina");
 			alert.showAndWait();
 		}else {
-
+			finishCreationMachine();
 			FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/ui/screen3.fxml"));
 			fxmlLoader.setController(this);
 			Parent menuPane = fxmlLoader.load();
@@ -159,6 +159,22 @@ public class FiniteStateMachineGUI {
 			mainPane.setStyle("-fx-background-image: url(/ui/background.jpeg)");
 		}
 					
+	}
+	
+	public void finishCreationMachine() {
+		for(int i=0; i<fsmRows.size();i++) {
+			for(int j=0; j<fsmC.getMachine().getInputAlphabet().size();j++) {
+				fsmC.getMachine().getStateTransition().get(i).add(fsmRows.get(i).getfFunct().get(j).getValue());
+				if(fsmC.getMachine() instanceof MealyMachine) {
+					((MealyMachine)fsmC.getMachine()).getOutputResult().get(i).add(((MealyTableViewRow)fsmRows.get(i)).getgFunct().get(j).getValue());
+				}
+			}
+			
+			if(fsmC.getMachine() instanceof MooreMachine) {
+				((MooreMachine)fsmC.getMachine()).getOutputResult().add(((MooreTableViewRow)fsmRows.get(i)).gethFunct().getValue());
+			}
+
+		}
 	}
 	
 	public boolean valuesMissingMachine() {

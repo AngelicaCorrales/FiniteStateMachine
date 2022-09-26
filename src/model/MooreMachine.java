@@ -7,11 +7,33 @@ public class MooreMachine extends FiniteStateMachine{
 	private ArrayList<String> outputResult;
 	private ArrayList<ArrayList<String>> particioning;
 
-	public MooreMachine(String[] inputSymbols, String[] outputSymbols, Integer numberofStates, ArrayList<ArrayList<String>> stateTransition) {
-		super(inputSymbols, outputSymbols, numberofStates, stateTransition);
+	
+
+	public MooreMachine(String[] inputSymbols, String[] outputSymbols, Integer numberofStates) {
+		super(inputSymbols, outputSymbols, numberofStates);
 		outputResult=new ArrayList<String>();
 		particioning=new ArrayList<ArrayList<String>>();
 	}
+	
+	public ArrayList<String> getOutputResult() {
+		return outputResult;
+	}
+
+
+	public void setOutputResult(ArrayList<String> outputResult) {
+		this.outputResult = outputResult;
+	}
+
+
+	public ArrayList<ArrayList<String>> getParticioning() {
+		return particioning;
+	}
+
+
+	public void setParticioning(ArrayList<ArrayList<String>> particioning) {
+		this.particioning = particioning;
+	}
+
 
 	
 	public void particioningAlgorithm(ArrayList<String> outputs) {

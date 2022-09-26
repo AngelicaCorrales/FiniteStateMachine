@@ -4,11 +4,23 @@ import java.util.ArrayList;
 
 public class MealyMachine extends FiniteStateMachine{
 	
-	private String[][] outputResult;
+	private ArrayList<ArrayList<String>> outputResult;
 
-	public MealyMachine(String[] inputSymbols, String[] outputSymbols, Integer numberofStates, ArrayList<ArrayList<String>> transitions) {
-		super(inputSymbols, outputSymbols, numberofStates, transitions);
-		//outputResult = new String[][];
+	public MealyMachine(String[] inputSymbols, String[] outputSymbols, Integer numberofStates) {
+		super(inputSymbols, outputSymbols, numberofStates);
+		outputResult = new ArrayList<ArrayList<String>>();
+		
+		for(int i=0;i<numberofStates;i++) {
+			outputResult.add(new ArrayList<String>());
+		}
+	}
+
+	public ArrayList<ArrayList<String>> getOutputResult() {
+		return outputResult;
+	}
+
+	public void setOutputResult(ArrayList<ArrayList<String>> outputResult) {
+		this.outputResult = outputResult;
 	}
 
 	
