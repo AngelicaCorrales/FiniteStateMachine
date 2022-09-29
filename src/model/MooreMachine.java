@@ -46,17 +46,29 @@ public class MooreMachine extends FiniteStateMachine{
 			ArrayList<String> equalSymbols=new ArrayList<String>();
 			for(int i=0;i<outputResult.size();i++) {
 				for(int j=1;j<outputResult.size();j++) {
-					if( outputResult.get(i).equals(equalSymbols.get(k)) && outputResult.get(i).equals(outputResult.get(j))) {
-						equalSymbols.add(super.getStates().get(i));
+					if(outputResult.get(i).equals(super.getOutputAlphabet().get(k)) && outputResult.get(i).equals(outputResult.get(j))) {
+						
+						if(equalSymbols.indexOf(super.getStates().get(i))==-1) {
+							equalSymbols.add(super.getStates().get(i));
+						}
+						
+						if(equalSymbols.indexOf(super.getStates().get(j))==-1) {
+							equalSymbols.add(super.getStates().get(j));
+						}
+						i=j;
 					}
-					i=j;
-					
 				}
 			}
 			particioning.add(equalSymbols);
 		}
 		
 		//Paso 2b: Obtener Pk+1 de Pk
+		
+		for(int j=0; j<particioning.size();j++) {
+			for(int k=0; k<particioning.get(j).size();k++) {
+				
+			}
+		}
 		
 	}
 	

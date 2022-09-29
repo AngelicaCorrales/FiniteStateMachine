@@ -73,9 +73,9 @@ public class FiniteStateMachine {
 		int[][] statesMachine=floydWarshall();
 		for(int j=0; j< states.size();j++) {
 			if(statesMachine[0][j]>=Integer.MAX_VALUE/2) {
+				removeOutputResult(j);
 				states.remove(j);
 				stateTransition.remove(j);
-				
 			}
 		}
 		
