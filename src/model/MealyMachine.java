@@ -43,14 +43,14 @@ public class MealyMachine extends FiniteStateMachine{
 		ArrayList<ArrayList<String>> combinations=new ArrayList<ArrayList<String>>();
 		for(int i=0;i<outputResult.size();i++) {
 			combinations.add(new ArrayList<String>());
-			combinations.get(i).addAll(outputResult.get(i));
+			combinations.get(combinations.size()-1).addAll(outputResult.get(i));
 			int count =0;
 			for(int a=0;a<combinations.size();a++) {
 				if(outputResult.get(i).equals(combinations.get(a))) {
 					count++;
 				}
 				if(count>1) {
-					combinations.remove(i);
+					combinations.remove(combinations.size()-1);
 				}
 			}
 		}
