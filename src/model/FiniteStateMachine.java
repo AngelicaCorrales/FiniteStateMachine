@@ -134,6 +134,7 @@ public class FiniteStateMachine {
 		for(int i=0;i<finalPartition.size();i++) { //Recorrer cada bloque de la particion final
 			int index= states.indexOf(finalPartition.get(i).get(0)); //Se obtiene el indice que hace referencia al sucesor de cualquier estado(en este caso aquel que se encuentra en la posicion cero) en el bloque 
 			for(int j=0;j<inputAlphabet.size();j++) {
+				exit=false;
 				String successor=stateTransition.get(index).get(j); //Se obtiene el sucesor del estado relacionado con el index y con el símbolo de simbolo de entrada al que j hace referencia
 				for(int m=0;m<finalPartition.size() && !exit;m++) { //Recorrer cada bloque de la particion final para buscar al sucesor dentro de los bloques
 					if(finalPartition.get(m).indexOf(successor)!=-1) { //Si el sucesor se encuentra en el bloque...
@@ -141,8 +142,9 @@ public class FiniteStateMachine {
 						newStateTransition.get(i).add(newStates.get(m));//Se agrega el sucesor al nuevo estado
 						
 						//Paso 3.2: Agregar nuevas salidas
-						
-						addNewOutputResult(index, i);
+						if(j==0) {
+							addNewOutputResult(index, i);	
+						}
 					}
 				}
 			}
