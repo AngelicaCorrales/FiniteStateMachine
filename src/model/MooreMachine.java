@@ -3,18 +3,16 @@ package model;
 import java.util.ArrayList;
 
 public class MooreMachine extends FiniteStateMachine{
-	
-	private ArrayList<String> outputResult;
-	private ArrayList<ArrayList<String>> particioning;
 
-	
+	private ArrayList<String> outputResult;
+	private ArrayList<ArrayList<ArrayList<String>>> partitions;
 
 	public MooreMachine(String[] inputSymbols, String[] outputSymbols, Integer numberofStates) {
 		super(inputSymbols, outputSymbols, numberofStates);
 		outputResult=new ArrayList<String>();
-		particioning=new ArrayList<ArrayList<String>>();
+		partitions=new ArrayList<ArrayList<ArrayList<String>>>();
 	}
-	
+
 	public ArrayList<String> getOutputResult() {
 		return outputResult;
 	}
@@ -24,16 +22,6 @@ public class MooreMachine extends FiniteStateMachine{
 		this.outputResult = outputResult;
 	}
 
-
-	public ArrayList<ArrayList<String>> getParticioning() {
-		return particioning;
-	}
-
-
-	public void setParticioning(ArrayList<ArrayList<String>> particioning) {
-		this.particioning = particioning;
-	}
-
 	@Override
 	public void removeOutputResult(int index) {
 		outputResult.remove(index);
@@ -41,17 +29,28 @@ public class MooreMachine extends FiniteStateMachine{
 
 	@Override
 	public void particioningAlgorithm() {
+
 		//Paso 2a: Formar una particion inicial P1 de Q
+
+		initialPartition();
+
+		//Paso 2b: Obtener Pk+1 de Pk
+
+		partitionkPLUS1();
+	}
+
+	public void initialPartition() {
+		ArrayList<ArrayList<String>> partition1=new ArrayList<ArrayList<String>>();
 		for(int k=0;k<super.getOutputAlphabet().size();k++) {
 			ArrayList<String> equalSymbols=new ArrayList<String>();
 			for(int i=0;i<outputResult.size();i++) {
 				for(int j=1;j<outputResult.size();j++) {
 					if(outputResult.get(i).equals(super.getOutputAlphabet().get(k)) && outputResult.get(i).equals(outputResult.get(j))) {
-						
+
 						if(equalSymbols.indexOf(super.getStates().get(i))==-1) {
 							equalSymbols.add(super.getStates().get(i));
 						}
-						
+
 						if(equalSymbols.indexOf(super.getStates().get(j))==-1) {
 							equalSymbols.add(super.getStates().get(j));
 						}
@@ -59,66 +58,77 @@ public class MooreMachine extends FiniteStateMachine{
 					}
 				}
 			}
-			particioning.add(equalSymbols);
+			partition1.add(equalSymbols);
 		}
-		
-		//Paso 2b: Obtener Pk+1 de Pk
-		
-		for(int j=0; j<particioning.size();j++) {
-			for(int k=0; k<particioning.get(j).size();k++) {
-				
-			}
-		}
-		
+		partitions.add(partition1);
 	}
-	
-	
-	public void matrizAdyacencia() {
-		 String[][] StatesxStates= new String[super.getStates().size()][super.getStates().size()];;
 
-		for(int i=0; i<super.getStates().size();i++) {
-			for(int j=0; j<super.getStateTransition().size();j++) {
-				for(int k=0; k<super.getStateTransition().size();k++) {
-					if(super.getStates().get(i).equals(super.getStateTransition().get(j).get(k))) {
-						StatesxStates[i][k]=super.getStateTransition().get(j).get(k);
+	public void partitionkPLUS1() {
+		
+		boolean find=true; //Indica si dos estados estan en un mismo bloque o no
+		boolean exit=false;
+		
+		for(int j=0; j<partitions.size() && !exit;j++) { //Se mira cada particion k
+
+			ArrayList<ArrayList<String>> partition_kPLUS1=new ArrayList<ArrayList<String>>();
+			ArrayList<ArrayList<ArrayList<String>>> partitionsCopy=new ArrayList<ArrayList<ArrayList<String>>>(partitions);
+
+			for(int k=0; k<partitionsCopy.get(j).size();k++) { //Se mira cada bloque de la particion
+
+				for(int l=0; l<partitionsCopy.get(j).get(k).size();l++) { //Se mira cada elemento de un bloque
+					ArrayList<String> block_kPLUS1=new ArrayList<String>();
+					String est1=partitionsCopy.get(j).get(k).get(l); 
+					block_kPLUS1.add(est1);
+					int indexStateBlock=-1;
+					for(int p=0; p<partitionsCopy.get(j).get(k).size();p++) {
+						indexStateBlock=p;
+						String est2=partitionsCopy.get(j).get(k).get(p);
+						find=true;
+						if(l!=p) {
+							for(int m=0; m<super.getInputAlphabet().size() && find;m++) { //Se mira cada sucesor con cada simbolo de entrada
+								//Sucesores de est1 y est2 a partir de cada una de las entradas.
+								String st1=super.getStateTransition().get(super.getStates().indexOf(est1)).get(m); //f(q,s)
+								String st2=super.getStateTransition().get(super.getStates().indexOf(est2)).get(m); //f(q',s)
+
+								//Buscar sucesor de est1 dentro de los bloques. 
+								for(int n=0; n<partitionsCopy.get(j).size() && find;n++) {
+									if(partitionsCopy.get(j).get(n).indexOf(st1)!=-1) {
+
+										//Cuando lo encuentre, buscar sucesor de est2 dentro de dicho bloque
+										if(partitionsCopy.get(j).get(n).indexOf(st2)==-1) { //Si no se encuentra, est1 y est2 no estarian dentro del mismo bloque.
+											find=false;	
+										}
+									}	
+								}
+							}
+							
+							if(find) {
+								if(block_kPLUS1.indexOf(est1)==-1) {
+									block_kPLUS1.add(est1);
+								}
+
+								if(block_kPLUS1.indexOf(est2)==-1) {
+									block_kPLUS1.add(est2);
+									partitionsCopy.get(j).get(k).remove(indexStateBlock);
+								}
+							}
+							
+							if(p==partitionsCopy.get(j).get(k).size()-1) {
+								partitionsCopy.get(j).get(k).remove(0);
+								l--;
+								partition_kPLUS1.add(block_kPLUS1);
+							}
+						}
 					}
 				}
 			}
+			partitions.add(partition_kPLUS1);
+			if(partitions.get(j).equals(partitions.get(j+1))) { //Paso 2c: Si Pm+1=Pm, Pm es la particion final de Q
+				exit=true;
+			}
 		}
-	}	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+	}
 }
+
+
+
