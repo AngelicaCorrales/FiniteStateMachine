@@ -8,6 +8,9 @@ public class FSMMinimizedRow {
 	private String block;
 	private ArrayList<String> fFunct;
 	
+	/*
+	 * FSMMinimizedRow es una fila de la tabla de la maquina minimizada y conexa
+	 */
 	public FSMMinimizedRow(String newState,ArrayList<String> block, ArrayList<String> fFunct) {
 		this.newState=newState;
 		this.block="{";

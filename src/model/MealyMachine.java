@@ -4,8 +4,8 @@ import java.util.ArrayList;
 
 public class MealyMachine extends FiniteStateMachine{
 
-	private ArrayList<ArrayList<String>> outputResult;
-	private ArrayList<ArrayList<String>> newOutputResult;
+	private ArrayList<ArrayList<String>> outputResult; // matrix de resultados de la funcion de salida g ---g: QxS->R
+	private ArrayList<ArrayList<String>> newOutputResult; // matrix de resultados de la funcion de salida g del nuevo automata conexo y minimo equivalente
 
 	public MealyMachine(String[] inputSymbols, String[] outputSymbols, Integer numberofStates) {
 		super(inputSymbols, outputSymbols, numberofStates);
@@ -33,12 +33,17 @@ public class MealyMachine extends FiniteStateMachine{
 		this.newOutputResult = newOutputResult;
 	}
 
-
+	/*
+	 * Quitar de la matrix el resultado de la funcion de salida asociado al estado al que no es posible llegar desde el estado inicial
+	 */
 	@Override
 	public void removeOutputResult(int index) {
 		outputResult.remove(index);
 	}
 	
+	/*
+	 * combinationsOfOutputs permite obtener las combinaciones de los simbolos de salida asociados a los estados
+	 */
 	public ArrayList<ArrayList<String>> combinationsOfOutputs(){
 		ArrayList<ArrayList<String>> combinations=new ArrayList<ArrayList<String>>();
 		for(int i=0;i<outputResult.size();i++) {
@@ -57,25 +62,28 @@ public class MealyMachine extends FiniteStateMachine{
 		return combinations;
 	}
 
+	/*
+	 * Paso 2a: Formar una particion inicial P1 de Q
+	 */
 	@Override
 	public void initialPartition() {
 		ArrayList<ArrayList<String>> combinations=combinationsOfOutputs();
 		ArrayList<ArrayList<String>> partition1=new ArrayList<ArrayList<String>>();
-		for(int a=0;a<combinations.size();a++) {
+		for(int a=0;a<combinations.size();a++) { //se mira cada combinacion de los simbolos de salida asociados a los estados
 			int index=-1;
 			boolean exit=false;
-			ArrayList<String> equalSymbols=new ArrayList<String>();
+			ArrayList<String> equalSymbols=new ArrayList<String>(); //bloque de estados con los mismos resultados de las funciones de salidas para todos los simbolos de entrada
 			for(int i=0;i<outputResult.size()  && !exit;i++) {
 				index=i;
 				for(int j=i;j<outputResult.size();j++) {
 					if(outputResult.get(i).equals(combinations.get(a)) && outputResult.get(i).equals(outputResult.get(j))) {
-						
+						//si un estado qi tiene los mismos resultados de las funciones de salidas que otro qj...
 						if(equalSymbols.indexOf(super.getStates().get(i))==-1) {
-							equalSymbols.add(super.getStates().get(i));
+							equalSymbols.add(super.getStates().get(i)); //se agrega qi al bloque 
 						}
 
 						if(equalSymbols.indexOf(super.getStates().get(j))==-1) {
-							equalSymbols.add(super.getStates().get(j));
+							equalSymbols.add(super.getStates().get(j)); //se agrega qj al bloque 
 						}
 						i=j;
 					}else if(!outputResult.get(i).equals(combinations.get(a))) {
@@ -85,12 +93,14 @@ public class MealyMachine extends FiniteStateMachine{
 				i=index;
 				exit=true;
 			}	
-			partition1.add(equalSymbols);
+			partition1.add(equalSymbols); // se agrega el bloque a la particion inicial
 		}
-		getPartitions().add(partition1);
+		getPartitions().add(partition1); // se agrega la particion inicial al conjunto de particiones
 	}
 
-
+	/*
+	 * Paso 3.2: Agregar nuevas salidas para el automata conexo y minimo equivalente.
+	 */
 	@Override
 	public void addNewOutputResult(int index, int i) {
 		newOutputResult.add(new ArrayList<String>());

@@ -6,6 +6,10 @@ public class MooreTableViewRow extends FSMTableViewRow {
 	
 private ComboBox<String> hFunct;
 	
+	/*
+	 * MooreTableViewRow es una fila de la tabla para una maquina de Moore, para agregar:
+	 * 		el valor de la funcion h 
+	 */
 	public MooreTableViewRow(String state) {
 		super(state);
 		hFunct= new ComboBox<String>();

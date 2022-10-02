@@ -38,6 +38,8 @@ public class FiniteStateMachineGUI {
 
 	@FXML
 	private BorderPane mainPane;
+	
+	//---Screen1
 
 	@FXML
 	private Button continueToScreen2;
@@ -205,6 +207,11 @@ public class FiniteStateMachineGUI {
 
 	}
 
+	/*
+	 *finishCreationMachine permite terminar de definir el automata de estado finito M, agregando:
+	 * los valores de matrix de resultados de la funcion f con cada estado y cada simbolo de S.  
+	 * los valores de los resultados de la funcion de salida (funcion g para Mealy. funcion h para Moore).  
+	 */
 	public void finishCreationMachine() {
 		for(int i=0; i<fsmRows.size();i++) {
 			for(int j=0; j<fsmC.getMachine().getInputAlphabet().size();j++) {

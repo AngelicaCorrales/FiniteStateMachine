@@ -4,8 +4,8 @@ import java.util.ArrayList;
 
 public class FSMController {
 	
-	private FiniteStateMachine machine;
-	private ArrayList<FSMMinimizedRow> minimizedMachineRows;
+	private FiniteStateMachine machine; //Automata de estado finito M
+	private ArrayList<FSMMinimizedRow> minimizedMachineRows; //filas para la tabla de la maquina minimizada
 
 	public FSMController(String type, String[] inSymbols, String[] outSymbols, Integer nStates) {
 		if(type.equals("Mealy")) {
@@ -33,6 +33,9 @@ public class FSMController {
 		this.minimizedMachineRows = minimizedMachineRows;
 	}
 
+	/*
+	 * createMinimizedMachineRows para crear las filas para la tabla de la maquina minimizada  
+	 */
 	public void createMinimizedMachineRows() {
 		if(machine instanceof MealyMachine) {
 			
@@ -42,6 +45,9 @@ public class FSMController {
 		}
 	}
 
+	/*
+	 * createMooreMinimizedRows para crear las filas para la tabla de la maquina de Moore minimizada  
+	 */
 	private void createMooreMinimizedRows() {
 		for(int i=0; i<machine.getNewStates().size();i++) {
 			FSMMinimizedRow row= new MooreMinimizedRow(machine.getNewStates().get(i),machine.getFinalPartition().get(i), machine.getNewStateTransition().get(i), ((MooreMachine)machine).getNewOutputResult().get(i));
@@ -51,6 +57,9 @@ public class FSMController {
 		
 	}
 
+	/*
+	 * createMealyMinimizedRows para crear las filas para la tabla de la maquina de Mealy minimizada  
+	 */
 	private void createMealyMinimizedRows() {
 		for(int i=0; i<machine.getNewStates().size();i++) {
 			FSMMinimizedRow row= new MealyMinimizedRow(machine.getNewStates().get(i),machine.getFinalPartition().get(i), machine.getNewStateTransition().get(i), ((MealyMachine)machine).getNewOutputResult().get(i));
@@ -59,36 +68,4 @@ public class FSMController {
 		}
 	}
 
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 }
